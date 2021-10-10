@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 //set up port to be used on local server
 const PORT = process.env.PORT || 3000;
 
-const User = require("./workoutModel.js");
+const Workout = require("./workoutModel.js");
 
 // allow express to be used when 'app' variable called
 const app = express();
