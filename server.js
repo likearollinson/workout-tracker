@@ -2,11 +2,10 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const routes = require("./routes");
 
 //set up port to be used on local server
 const PORT = process.env.PORT || 3000;
-
-const Workout = require("./workoutModel.js");
 
 // allow express to be used when 'app' variable called
 const app = express();
@@ -18,27 +17,10 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true });
 
-// Routes from example application
-
-// // Route to post our form submission to mongoDB via mongoose
-// app.post("/submit", ({ body }, res) => {
-//     // Create a new user using req.body
-//     const user = new User(body);
-//     user.setFullName();
-//     user.lastUpdatedDate();
-
-//     User.create(user)
-//         .then(dbUser => {
-//             // If saved successfully, send the the new User document to the client
-//             res.json(dbUser);
-//         })
-//         .catch(err => {
-//             // If an error occurs, send the error to the client
-//             res.json(err);
-//         });
-// });
+app.use(require('./routes/api.js'));
+app.use(routes);
 
 // Start the server
 app.listen(PORT, () => {
