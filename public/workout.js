@@ -6,9 +6,11 @@ async function initWorkout() {
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
+    console.log('last Workout' + JSON.stringify(lastWorkout));
+    console.log('last workout duration: ' + lastWorkout.duration)
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
+      totalDuration: lastWorkout.duration,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
@@ -46,6 +48,8 @@ function formatDate(date) {
 
 function renderWorkoutSummary(summary) {
   const container = document.querySelector(".workout-stats");
+
+  console.log(summary);
 
   const workoutKeyMap = {
     date: "Date",
